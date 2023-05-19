@@ -41,3 +41,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Walls
+    uniqueID: 985085419
+    locked: 0
+  - name: Objects
+    uniqueID: 414519975
+    locked: 0
+  - name: Player
+    uniqueID: 824879299
+    locked: 0
+  - name: Enemies
+    uniqueID: 1853184247
+    locked: 0
