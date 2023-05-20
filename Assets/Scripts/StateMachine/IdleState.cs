@@ -14,6 +14,11 @@ public class IdleState : State
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            Debug.Log("still works");
+        }
+
         if (Input.GetKey(KeyCode.Space))
         {
             isFindPlayer = true;
