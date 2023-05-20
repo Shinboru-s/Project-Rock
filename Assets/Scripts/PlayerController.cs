@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public Animator animator;
     [SerializeField] private float moveSpeed = 5f;
     Rigidbody2D rb;
     Vector2 movement;
@@ -16,9 +17,13 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         Move();
-        
-        if ((movement.x < 0 && isFaceRight) || (movement.x > 0 && isFaceRight == false))
-                Flip();
+
+        if ((movement.x < 0 && isFaceRight) || (movement.x > 0 && isFaceRight == false)){
+            Flip();
+        }
+                
+
+        animator.SetFloat("Speed", Mathf.Abs(movement.x) + Mathf.Abs(movement.y));
     }
 
     void FixedUpdate() 
@@ -36,5 +41,6 @@ public class PlayerController : MonoBehaviour
     {
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
+        movement = movement.normalized;
     }
 }
