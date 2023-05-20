@@ -4,22 +4,42 @@ using UnityEngine;
 
 public class ChaseState : State
 {
-    
+    [SerializeField] private IdleState idleState;
+    [SerializeField] private PatrolState patrolState;
+    private Transform player;
 
-    // Start is called before the first frame update
     void Start()
     {
-        
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        Debug.Log("Chaseing!");
-    }
 
     public override State RunCurrentState()
     {
-        return this;
+        
+        if (Vector2.Distance(player.position, transform.position) <= 5f) 
+        {
+            StopAllCoroutines();
+            transform.parent.parent.gameObject.GetComponent<EnemyAIController>().SetAITarget(player);
+            return this;
+        }
+        else
+        {
+            transform.parent.parent.gameObject.GetComponent<EnemyAIController>().SetAITarget(null);
+
+            if (patrolState != null) 
+            {
+                transform.parent.parent.gameObject.GetComponent<EnemyAnimationController>().ChangeAnimation("walk");
+                return patrolState;
+            }
+            else
+            {
+                transform.parent.parent.gameObject.GetComponent<EnemyAnimationController>().ChangeAnimation("idle");
+                return idleState;
+            }
+        }
+
     }
+
 }

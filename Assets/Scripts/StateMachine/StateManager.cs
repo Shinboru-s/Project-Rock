@@ -20,7 +20,7 @@ public class StateManager : MonoBehaviour
         }
     }
 
-    private void SwitchToNextState(State nextState)
+    public void SwitchToNextState(State nextState)
     {
         currentState = nextState;
     }

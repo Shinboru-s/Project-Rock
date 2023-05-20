@@ -4,31 +4,20 @@ using UnityEngine;
 
 public class IdleState : State
 {
-    private bool isFindPlayer = false;
     [SerializeField] private ChaseState chaseState;
+    private GameObject player;
+
     void Start()
     {
-        
-    }
+        player = GameObject.FindGameObjectWithTag("Player");
 
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            Debug.Log("still works");
-        }
-
-        if (Input.GetKey(KeyCode.Space))
-        {
-            isFindPlayer = true;
-        }
     }
 
     public override State RunCurrentState()
     {
-        if (isFindPlayer)
+        if (Vector2.Distance(player.transform.position, transform.position) <= 5f)
         {
+            transform.parent.parent.gameObject.GetComponent<EnemyAnimationController>().ChangeAnimation("chase");
             return chaseState;
         }
         else
