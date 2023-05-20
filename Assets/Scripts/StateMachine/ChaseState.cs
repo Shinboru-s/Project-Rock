@@ -15,7 +15,7 @@ public class ChaseState : State
     // Update is called once per frame
     void Update()
     {
-        
+        Debug.Log("Chaseing!");
     }
 
     public override State RunCurrentState()
