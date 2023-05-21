@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public Animator animator;
+    public GameObject gfx;
     public GameObject soundWave;
 
     [SerializeField] private float moveSpeed = 5f;
@@ -37,7 +38,7 @@ public class PlayerController : MonoBehaviour
     
     private void Flip()
     {
-        transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
+        gfx.transform.localScale = new Vector2(gfx.transform.localScale.x * -1, gfx.transform.localScale.y);
         isFaceRight = !isFaceRight;
     }
 
