@@ -6,7 +6,9 @@ public class ChaseState : State
 {
     [SerializeField] private IdleState idleState;
     [SerializeField] private PatrolState patrolState;
+    [SerializeField] private float playerMaxDistance;
     private Transform player;
+
 
     void Start()
     {
@@ -18,7 +20,7 @@ public class ChaseState : State
     public override State RunCurrentState()
     {
         
-        if (Vector2.Distance(player.position, transform.position) <= 5f) 
+        if (Vector2.Distance(player.position, transform.position) <= playerMaxDistance) 
         {
             StopAllCoroutines();
             transform.parent.parent.gameObject.GetComponent<EnemyAIController>().SetAITarget(player);
