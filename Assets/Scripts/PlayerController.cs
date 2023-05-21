@@ -16,19 +16,33 @@ public class PlayerController : MonoBehaviour
      private bool isSoundWaving = false;
      private Coroutine test;
 
+    private bool isRock = false;
+    private bool canMove = true;
+    private bool canThrow = true;
+    [SerializeField] private PlayerThrow throwScript;
+
     void Start() 
     {
         rb = GetComponent<Rigidbody2D>();
     }
     void Update()
     {
-        Move();
+        if (canMove == true)
+        {
+            Move();
+
+        }
 
         if ((movement.x < 0 && isFaceRight) || (movement.x > 0 && isFaceRight == false)){
             Flip();
         }
                 
         animator.SetFloat("Speed", Mathf.Abs(movement.x) + Mathf.Abs(movement.y));
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            TransformEvent();
+        }
     }
 
     void FixedUpdate() 
@@ -71,8 +85,27 @@ public class PlayerController : MonoBehaviour
     {
         isSoundWaving = true;
         StartCoroutine(spawnSoundWave());
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.25f);
         isSoundWaving = false;
         yield return null;
+    }
+
+    private void TransformEvent()
+    {
+        
+        isRock = !isRock;
+        canMove = !canMove;
+        canThrow = !canThrow;
+        throwScript.enabled = !throwScript.enabled;
+        animator.SetTrigger("transform");
+
+        if (isRock == true) 
+        {
+            gameObject.tag = "Obstacle";
+        }
+        else
+        {
+            gameObject.tag = "Player";
+        }
     }
 }

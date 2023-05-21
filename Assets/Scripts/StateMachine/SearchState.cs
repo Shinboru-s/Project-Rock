@@ -20,6 +20,8 @@ public class SearchState : State
 
     [SerializeField] private Transform tempTransform;
 
+    [SerializeField] private GameObject soundWave;
+
 
     void Start()
     {
@@ -34,7 +36,7 @@ public class SearchState : State
 
     public override State RunCurrentState()
     {
-        if (Vector2.Distance(player.transform.position, transform.position) <= 3f)
+        if (Vector2.Distance(player.transform.position, transform.position) <= 3f && player.tag == "Player") 
         {
             StopAllCoroutines();
             FinishSeach();
@@ -78,16 +80,25 @@ public class SearchState : State
         {
             if(Vector2.Distance(item.transform.position, transform.position) <= radius)
             {
-                Debug.Log("Kontrol listesine eklenen obje adi: " + item.gameObject.name);
                 controlPoints.Add(item.gameObject.transform.position);
                 //sound wave effect
+                StartCoroutine(spawnSoundWave(item));
             }
         }
         //player
         if (Vector2.Distance(player.transform.position, transform.position) <= radius)
         {
             controlPoints.Add(player.transform.position);
+            StartCoroutine(spawnSoundWave(player));
+
         }
+    }
+
+    IEnumerator spawnSoundWave(GameObject item)
+    {
+        GameObject newObject = Instantiate(soundWave, item.gameObject.transform.position, Quaternion.identity);
+        yield return new WaitForSeconds(0.8f);
+        Destroy(newObject);
     }
 
     private void CheckObstacles()
