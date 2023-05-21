@@ -11,20 +11,21 @@ public class PlayerThrow : MonoBehaviour
     public GameObject player;
     const int throwLimit = 100;
     int currentRockCount;
+    bool willUseSkillshot;
 
     void Start()
     {
-        currentRockCount = throwLimit;    
+        currentRockCount = throwLimit;
     }
     
     void Update()
     {
         if(Input.GetButtonDown("Skill"))
         {
-            skillshot.SetActive(!skillshot.activeSelf);
+            toggleSkillshot();
         }
 
-        if(Input.GetMouseButtonDown(0) && currentRockCount > 0)
+        if(Input.GetMouseButtonDown(0) && currentRockCount > 0 && willUseSkillshot)
         {
             rock.SetActive(true);
             Vector3 throwPos = (Camera.main.ScreenToWorldPoint(Input.mousePosition));
@@ -47,9 +48,14 @@ public class PlayerThrow : MonoBehaviour
         skillshot.transform.rotation = Quaternion.Euler(rotation);
 
     }
-
+    void toggleSkillshot()
+    {
+        skillshot.SetActive(!skillshot.activeSelf);
+        willUseSkillshot = !willUseSkillshot;
+    }
     IEnumerator throwRock(Vector3 throwPos) 
     {
+        toggleSkillshot();
         currentRockCount--;
         GameObject newObject = Instantiate(rock, transform.parent);
         
