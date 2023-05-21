@@ -109,6 +109,7 @@ GameObject:
   - component: {fileID: 4637897596702419030}
   - component: {fileID: 4637897596702419029}
   - component: {fileID: 4637897596702419019}
+  - component: {fileID: 3336283889722679786}
   m_Layer: 0
   m_Name: SleepingMonster
   m_TagString: Untagged
@@ -131,7 +132,7 @@ Transform:
   - {fileID: 4637897596237680396}
   - {fileID: 4637897598118405921}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!58 &4637897596702419028
 CircleCollider2D:
@@ -272,6 +273,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 4637897597803454184}
+--- !u!114 &3336283889722679786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4637897596702419027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f78cd00b72a80514c9bbe33ebbdd20b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4637897597636757842
 GameObject:
   m_ObjectHideFlags: 0

@@ -123,7 +123,7 @@ public class SearchState : State
             if (hit.collider == null)
             {
                 teleportPosition = new Vector2(obstacle.x, obstacle.y);
-                teleportPosition += rayDir;
+                teleportPosition += rayDir * 1.5f;
                 break;
             }
 

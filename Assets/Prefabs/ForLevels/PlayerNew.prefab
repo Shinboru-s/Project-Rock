@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 6604420081526431891}
   - component: {fileID: 6604420081526431892}
   - component: {fileID: 6604420081526431893}
-  - component: {fileID: 6604420081526431894}
   m_Layer: 0
   m_Name: PlayerNew
   m_TagString: Player
@@ -38,7 +37,7 @@ Transform:
   - {fileID: 6604420081594481095}
   - {fileID: 6604420082098600802}
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &6604420081526431891
 Rigidbody2D:
@@ -78,7 +77,6 @@ MonoBehaviour:
   soundWave: {fileID: 3217549773662585853, guid: 4c27dfc4b98142540a5ea137e10a16d9, type: 3}
   moveSpeed: 5
   throwForce: 10
-  throwScript: {fileID: 6604420081526431894}
 --- !u!61 &6604420081526431893
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -105,23 +103,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &6604420081526431894
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6604420081526431895}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a63e2bc8ffa5ba4b85b6affbb4da4b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rock: {fileID: 8253034691769412541, guid: 695aac0789a39904bbac2b3339bc8d30, type: 3}
-  skillshot: {fileID: 6604420081594481097}
-  throwSpeed: 0.01
-  throwDistance: 10
-  player: {fileID: 6604420081526431895}
 --- !u!1 &6604420081594481097
 GameObject:
   m_ObjectHideFlags: 0

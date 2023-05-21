@@ -26,6 +26,7 @@ public class AudioManager : MonoBehaviour
     public Sound[] sounds;
     private AudioSource[] audios;
     private List<string> randomSFX = new List<string>();
+    private List<string> Footsteps = new List<string>();
 
 
     private static AudioManager _instance;
@@ -48,11 +49,11 @@ public class AudioManager : MonoBehaviour
         {
             s.source = gameObject.AddComponent<AudioSource>();
             s.source.clip = s.clip;
-
+            s.source.name = s.name;
             s.source.volume = s.volume;
             s.source.pitch = s.pitch;
             s.source.loop = s.loop;
-
+            Debug.Log(s.source.name);
         }
 
 
@@ -74,6 +75,8 @@ public class AudioManager : MonoBehaviour
 
         FindRandomSFX();
         StartCoroutine(PlayRandomSFX());
+
+        FindFootsteps();
     }
 
     public void Play(string name)
@@ -140,11 +143,6 @@ public class AudioManager : MonoBehaviour
             if (sounds[i].clip.name.Contains("Random"))
             {
                 randomSFX.Add(sounds[i].name);
-                Debug.Log("Random SFX added: " + sounds[i].name);
-            }
-            else
-            {
-                Debug.Log(sounds[i].clip.name + " Not Selected");
             }
         }
     }
@@ -171,6 +169,25 @@ public class AudioManager : MonoBehaviour
             ChangePitch(randomSFX[sfxIndex]);
             Play(randomSFX[sfxIndex]);
         }   
+    }
+
+    public void RandomFootstep()
+    {
+        int footstepIndex = UnityEngine.Random.Range(0, Footsteps.Count);
+        Play(Footsteps[footstepIndex]);
+
+    }
+
+    private void FindFootsteps()
+    {
+        for (int i = 0; i < sounds.Length; i++)
+        {
+            if (sounds[i].clip.name.Contains("Footstep"))
+            {
+                Footsteps.Add(sounds[i].name);
+                Debug.Log("yurume sesi olarak eklendi: " + sounds[i].name);
+            }
+        }
     }
 
 }

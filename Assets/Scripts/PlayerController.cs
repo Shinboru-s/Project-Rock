@@ -18,8 +18,6 @@ public class PlayerController : MonoBehaviour
 
     private bool isRock = false;
     private bool canMove = true;
-    private bool canThrow = true;
-    [SerializeField] private PlayerThrow throwScript;
 
     void Start() 
     {
@@ -75,6 +73,8 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator spawnSoundWave()
     {
+        FindObjectOfType<AudioManager>().RandomFootstep();
+
         GameObject newObject = Instantiate(soundWave, transform.parent);
         newObject.transform.position = transform.position;
         yield return new WaitForSeconds(0.8f);
@@ -95,8 +95,6 @@ public class PlayerController : MonoBehaviour
         
         isRock = !isRock;
         canMove = !canMove;
-        canThrow = !canThrow;
-        throwScript.enabled = !throwScript.enabled;
         animator.SetTrigger("transform");
 
         if (isRock == true) 
@@ -108,4 +106,6 @@ public class PlayerController : MonoBehaviour
             gameObject.tag = "Player";
         }
     }
+
+    
 }

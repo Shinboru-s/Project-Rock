@@ -46,9 +46,9 @@ public class SleepState : State
     void PlayRandomAudio()
     {
 
-        int randInt = Random.Range(1, 3);
+        int randInt = Random.Range(1, 2);
 
-        string randString = "DeamonWakeUp_" + randInt.ToString();
+        string randString = "WakeUp_" + randInt.ToString();
         Debug.Log(randString);
         FindObjectOfType<AudioManager>().Play(randString);
 

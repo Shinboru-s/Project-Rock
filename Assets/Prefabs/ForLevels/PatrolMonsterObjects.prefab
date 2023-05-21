@@ -110,6 +110,7 @@ GameObject:
   - component: {fileID: 8122350925968084559}
   - component: {fileID: 8122350925968084556}
   - component: {fileID: 8122350925968084557}
+  - component: {fileID: 4648396463797391516}
   m_Layer: 0
   m_Name: PatrolMonster
   m_TagString: Untagged
@@ -273,6 +274,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 8122350927639304003}
+--- !u!114 &4648396463797391516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8122350925968084528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f78cd00b72a80514c9bbe33ebbdd20b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8122350926188398190
 GameObject:
   m_ObjectHideFlags: 0
@@ -580,7 +593,7 @@ Transform:
   - {fileID: 8122350926627593325}
   - {fileID: 8122350926188398185}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8122350927639304001
 GameObject:
