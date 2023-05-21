@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     private float volume;
 
 
-    private void Awake()
+    private void Start()
     {
 
         Time.timeScale = 1f;
@@ -25,7 +25,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private bool isMainMenu = false;
     private void Update()
     {
-        Debug.Log("**************************************************************************");
         if (isMainMenu == false)
         {
             if (Input.GetKeyDown(KeyCode.R))
@@ -120,6 +119,8 @@ public class GameManager : MonoBehaviour
     public GameObject sfxSlider;
     public void SetSliderVolume()
     {
+        Debug.Log(musicSlider.GetComponent<Slider>().value);
+        Debug.Log(FindObjectOfType<AudioManager>().GetAudioVolume(true));
         musicSlider.GetComponent<Slider>().value = FindObjectOfType<AudioManager>().GetAudioVolume(true);
         sfxSlider.GetComponent<Slider>().value = FindObjectOfType<AudioManager>().GetAudioVolume(false);
     }

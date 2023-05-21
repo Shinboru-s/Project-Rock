@@ -7,6 +7,8 @@ public class PatrolState : State
 {
     [SerializeField] private GameObject[] patrolPoints;
     [SerializeField] private ChaseState chaseState;
+    [SerializeField] private float playerMaxDistance;
+
     private AIPath aiPath;
     private bool isPatroling = false;
     private GameObject player;
@@ -29,7 +31,7 @@ public class PatrolState : State
             isPatroling = true;
         }
 
-        if (Vector2.Distance(player.transform.position, transform.position) <= 5f)
+        if (Vector2.Distance(player.transform.position, transform.position) <= playerMaxDistance)
         {
             transform.parent.parent.gameObject.GetComponent<EnemyAnimationController>().ChangeAnimation("chase");
             return chaseState;

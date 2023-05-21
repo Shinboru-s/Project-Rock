@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 718493873430515627}
+  - component: {fileID: 5257803809404440432}
   m_Layer: 0
   m_Name: BansheeObjects
   m_TagString: Untagged
@@ -33,6 +34,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5257803809404440432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 718493873430515626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d1142dc173239c478db8b033e79f3e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bansheeObject: {fileID: 718493874483182585}
 --- !u!1 &718493874109116908
 GameObject:
   m_ObjectHideFlags: 0
@@ -446,7 +460,7 @@ MonoBehaviour:
   radius: 0.92
   height: 2
   canMove: 1
-  maxSpeed: 3
+  maxSpeed: 4
   gravity: {x: 0, y: 0, z: 0}
   groundMask:
     serializedVersion: 2
@@ -617,7 +631,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idleState: {fileID: 718493874710778258}
   patrolState: {fileID: 0}
-  playerMaxDistance: 3
+  playerMaxDistance: 5
   isBanshee: 1
 --- !u!1 &718493874710778260
 GameObject:
@@ -665,7 +679,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chaseState: {fileID: 718493874584941410}
   searchState: {fileID: 718493874304462467}
-  playerMaxDistance: 3
+  playerMaxDistance: 5
 --- !u!1 &718493875121595413
 GameObject:
   m_ObjectHideFlags: 0

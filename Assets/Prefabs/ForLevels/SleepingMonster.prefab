@@ -92,7 +92,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chaseState: {fileID: 4637897597924331731}
   searchState: {fileID: 0}
-  playerMaxDistance: 4
+  playerMaxDistance: 6
 --- !u!1 &4637897596702419027
 GameObject:
   m_ObjectHideFlags: 0
@@ -194,7 +194,7 @@ MonoBehaviour:
   radius: 0.92
   height: 2
   canMove: 1
-  maxSpeed: 3
+  maxSpeed: 3.5
   gravity: {x: 0, y: 0, z: 0}
   groundMask:
     serializedVersion: 2
@@ -482,7 +482,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idleState: {fileID: 4637897596566595074}
   patrolState: {fileID: 0}
-  playerMaxDistance: 4
+  playerMaxDistance: 6
   isBanshee: 0
 --- !u!1 &4637897598118405922
 GameObject:

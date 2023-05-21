@@ -119,19 +119,15 @@ public class AudioManager : MonoBehaviour
 
     public float GetAudioVolume(bool isTheme)
     {
-        return 0f;
-
-        for (int i = 0; i < audios.Length; i++)
+        foreach (var audioTime in audios)
         {
             if (isTheme == true)
             {
-                if (audios[i].clip.name == "Theme")
-                    return audios[i].volume;
+                if (audioTime.clip.name == "Theme")
+                    return audioTime.volume;
             }
-            else if (audios[i].clip.name != "Theme")
-                return audios[i].volume;
-            
-
+            else if (audioTime.clip.name != "Theme")
+                return audioTime.volume;
         }
         return 0f;
     }
