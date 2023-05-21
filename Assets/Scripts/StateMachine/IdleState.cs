@@ -25,6 +25,7 @@ public class IdleState : State
         }
         else if (searchState != null)
         {
+            transform.parent.parent.GetComponent<EnemyAIController>().SetAITarget(null);
             return searchState;
 
         }

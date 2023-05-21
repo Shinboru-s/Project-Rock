@@ -16,6 +16,10 @@ public class SearchState : State
     private bool isScreamEventStart = false;
 
     private Coroutine activeTeleportEvent;
+    private int controlIndex = 0;
+
+    [SerializeField] private Transform tempTransform;
+
 
     void Start()
     {
@@ -33,8 +37,7 @@ public class SearchState : State
         if (Vector2.Distance(player.transform.position, transform.position) <= 3f)
         {
             StopAllCoroutines();
-            isScreamEventStart = false;
-            canTeleport = false;
+            FinishSeach();
             transform.parent.parent.gameObject.GetComponent<EnemyAnimationController>().ChangeAnimation("walk");
             return chaseState;
         }
@@ -55,22 +58,50 @@ public class SearchState : State
     private void SearchObstacles()
     {
         controlPoints.Clear();
+        controlIndex = 0;
 
-        var colliders = Physics.OverlapSphere(transform.position, radius);
-        foreach (var collider in colliders)
+        //var colliders = Physics.OverlapSphere(transform.position, radius);
+        //foreach (var collider in colliders)
+        //{
+        //    Debug.Log("Bulunan obje adi: " + collider.gameObject.name);
+
+        //    if (collider.gameObject.CompareTag("Player") || collider.gameObject.CompareTag("Obstacle"))
+        //    {
+        //        Debug.Log("Kontrol listesine eklenen obje adi: " + collider.gameObject.name);
+
+        //        controlPoints.Add(collider.gameObject);
+        //        //sound wave effect
+        //    }
+        //}
+        var objects = GameObject.FindGameObjectsWithTag("Obstacle");
+        foreach (var item in objects)
         {
-            if (collider.gameObject.CompareTag("Player") || collider.gameObject.CompareTag("Obstacle"))
+            if(Vector2.Distance(item.transform.position, transform.position) <= radius)
             {
-                controlPoints.Add(collider.gameObject);
+                Debug.Log("Kontrol listesine eklenen obje adi: " + item.gameObject.name);
+                controlPoints.Add(item.gameObject);
                 //sound wave effect
             }
+        }
+        //player
+        if (Vector2.Distance(player.transform.position, transform.position) <= radius)
+        {
+            controlPoints.Add(player);
         }
     }
 
     private void CheckObstacles()
     {
-        RayControl(controlPoints[controlPoints.Count - 1]);
-        controlPoints.RemoveAt(controlPoints.Count - 1);
+        if (controlIndex >= controlPoints.Count)
+        {
+            FinishSeach();
+        }
+        else
+        {
+            RayControl(controlPoints[controlIndex]);
+            controlIndex++;
+        } 
+        
     }
 
     private void RayControl(GameObject obstacle)
@@ -92,23 +123,47 @@ public class SearchState : State
 
     IEnumerator ScreamEvent()
     {
-        transform.parent.parent.gameObject.GetComponent<EnemyAnimationController>().ChangeAnimation("scream");
 
         isScreamEventStart = true;
         yield return new WaitForSeconds(3f);
+        transform.parent.parent.gameObject.GetComponent<EnemyAnimationController>().ChangeAnimation("scream");
+        FindObjectOfType<AudioManager>().Play("BansheeScream");
+
         SearchObstacles();
         yield return new WaitForSeconds(2f);
-        canTeleport = true;
+        if (controlPoints != null)
+        {
+            canTeleport = true;
+        }
+        else
+        {
+            FinishSeach();
+        }
+
     }
 
     IEnumerator ObstacleCheckEvent()
     {
+        CheckObstacles();
+        if (canTeleport == false)
+            yield break;
+
         transform.parent.parent.gameObject.GetComponent<EnemyAnimationController>().ChangeAnimation("teleport");
+        FindObjectOfType<AudioManager>().Play("BansheeTeleport");
         yield return new WaitForSeconds(0.66f);
 
-        CheckObstacles();
+        tempTransform.position = new Vector3(teleportPosition.x, teleportPosition.y, 0f);
+
+        transform.parent.parent.gameObject.GetComponent<EnemyAIController>().SetAITarget(tempTransform);
         transform.parent.parent.position = teleportPosition;
         yield return new WaitForSeconds(3f);
+        activeTeleportEvent = null;
+    }
+
+    private void FinishSeach()
+    {
+        canTeleport = false;
+        isScreamEventStart = false;
         activeTeleportEvent = null;
     }
 }

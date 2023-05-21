@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
-
+using System.Collections.Generic;
+using System.Collections;
 
 [System.Serializable]
 public class Sound
@@ -24,6 +25,7 @@ public class AudioManager : MonoBehaviour
 {
     public Sound[] sounds;
     private AudioSource[] audios;
+    private List<string> randomSFX = new List<string>();
 
 
     private static AudioManager _instance;
@@ -42,14 +44,14 @@ public class AudioManager : MonoBehaviour
             _instance = this;
         }
 
-        foreach (Sound item in sounds)
+        foreach (Sound s in sounds)
         {
-            item.source = gameObject.AddComponent<AudioSource>();
-            item.source.clip = item.clip;
+            s.source = gameObject.AddComponent<AudioSource>();
+            s.source.clip = s.clip;
 
-            item.source.volume = item.volume;
-            item.source.pitch = item.pitch;
-            item.source.loop = item.loop;
+            s.source.volume = s.volume;
+            s.source.pitch = s.pitch;
+            s.source.loop = s.loop;
 
         }
 
@@ -69,11 +71,16 @@ public class AudioManager : MonoBehaviour
         {
             Debug.Log(item.clip.name);
         }
+
+        FindRandomSFX();
+        StartCoroutine(PlayRandomSFX());
     }
 
     public void Play(string name)
     {
         Sound s = Array.Find(sounds, sound => sound.name == name);
+        if (s == null)
+            return;
         s.source.Play();
     }
     public void Stop(string name)
@@ -119,4 +126,45 @@ public class AudioManager : MonoBehaviour
         }
         return 0f;
     }
+
+    private void FindRandomSFX()
+    {
+        for (int i = 0; i < sounds.Length; i++)
+        {
+            if (sounds[i].clip.name.Contains("Random"))
+            {
+                randomSFX.Add(sounds[i].name);
+                Debug.Log("Random SFX added: " + sounds[i].name);
+            }
+            else
+            {
+                Debug.Log(sounds[i].clip.name + " Not Selected");
+            }
+        }
+    }
+
+    private void ChangePitch(string soundName)
+    {
+        Sound s = Array.Find(sounds, sound => sound.name == soundName);
+        float pitch = UnityEngine.Random.Range(0.5f, 1.5f);
+
+        s.source.pitch = pitch;
+    }
+
+    IEnumerator PlayRandomSFX()
+    {
+        yield return new WaitForSeconds(5f);
+
+        while (true)
+        {
+            float waitSeconds = UnityEngine.Random.Range(7f, 13f);
+
+            yield return new WaitForSeconds(waitSeconds);
+
+            int sfxIndex = UnityEngine.Random.Range(0, randomSFX.Count);
+            ChangePitch(randomSFX[sfxIndex]);
+            Play(randomSFX[sfxIndex]);
+        }   
+    }
+
 }
