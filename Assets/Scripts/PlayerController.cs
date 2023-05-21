@@ -5,10 +5,15 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public Animator animator;
+    public GameObject soundWave;
+
     [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private float throwForce = 10f;
     Rigidbody2D rb;
     Vector2 movement;
      private bool isFaceRight = true;
+     private bool isSoundWaving = false;
+     private Coroutine test;
 
     void Start() 
     {
@@ -22,7 +27,6 @@ public class PlayerController : MonoBehaviour
             Flip();
         }
                 
-
         animator.SetFloat("Speed", Mathf.Abs(movement.x) + Mathf.Abs(movement.y));
     }
 
@@ -42,5 +46,32 @@ public class PlayerController : MonoBehaviour
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
         movement = movement.normalized;
+        if (movement != Vector2.zero && isSoundWaving == false)
+        {
+           test = StartCoroutine(waitForNextSpawn());       
+        }
+
+        else if (movement == Vector2.zero && isSoundWaving == true)
+        {
+            StopCoroutine(test);
+            isSoundWaving = false;
+        }
+    }
+
+    IEnumerator spawnSoundWave()
+    {
+        GameObject newObject = Instantiate(soundWave, transform.parent);
+        newObject.transform.position = transform.position;
+        yield return new WaitForSeconds(0.8f);
+        Destroy(newObject);
+    }
+
+    IEnumerator waitForNextSpawn()
+    {
+        isSoundWaving = true;
+        StartCoroutine(spawnSoundWave());
+        yield return new WaitForSeconds(1f);
+        isSoundWaving = false;
+        yield return null;
     }
 }
