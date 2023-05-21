@@ -20,7 +20,14 @@ public class IdleState : State
     {
         if (Vector2.Distance(player.transform.position, transform.position) <= playerMaxDistance)
         {
-            transform.parent.parent.gameObject.GetComponent<EnemyAnimationController>().ChangeAnimation("chase");
+            if (searchState != null)
+            {
+                transform.parent.parent.gameObject.GetComponent<EnemyAnimationController>().ChangeAnimation("walk");
+            }
+            else
+            {
+                transform.parent.parent.gameObject.GetComponent<EnemyAnimationController>().ChangeAnimation("chase");
+            }
             return chaseState;
         }
         else if (searchState != null)

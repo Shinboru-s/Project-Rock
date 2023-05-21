@@ -8,6 +8,12 @@ public class ChaseState : State
     [SerializeField] private PatrolState patrolState;
     [SerializeField] private float playerMaxDistance;
     private Transform player;
+    [SerializeField] private bool isBanshee;
+    private bool canPlayAudio = true;
+    private bool didLeaveChase = true;
+    private float waitBtwAudio = 2;
+    private float counterWaitBtwAudio;
+
 
 
     void Start()
@@ -19,6 +25,18 @@ public class ChaseState : State
 
     public override State RunCurrentState()
     {
+        if (didLeaveChase == true)
+        {
+            if (canPlayAudio == true)
+            {
+                PlayChaseAudio();
+            }
+            else
+            {
+                WaitForNextAudio();
+            }
+        }
+        
         
         if (Vector2.Distance(player.position, transform.position) <= playerMaxDistance) 
         {
@@ -29,6 +47,8 @@ public class ChaseState : State
         else
         {
             transform.parent.parent.gameObject.GetComponent<EnemyAIController>().SetAITarget(null);
+
+            didLeaveChase = true;
 
             if (patrolState != null) 
             {
@@ -43,5 +63,38 @@ public class ChaseState : State
         }
 
     }
+
+    private void PlayChaseAudio()
+    {
+        didLeaveChase = false;
+        canPlayAudio = false;
+
+        if (isBanshee == true)
+        {
+            FindObjectOfType<AudioManager>().Play("BansheeScream");
+
+        }
+        else
+        {
+            FindObjectOfType<AudioManager>().Play("DemonChase");
+
+        }
+        counterWaitBtwAudio = waitBtwAudio;
+    }
+
+    void WaitForNextAudio()
+    {
+        if (counterWaitBtwAudio <= 0)
+        {
+            canPlayAudio = true;
+
+        }
+        else
+        {
+            counterWaitBtwAudio -= Time.deltaTime;
+        }
+    }
+
+
 
 }

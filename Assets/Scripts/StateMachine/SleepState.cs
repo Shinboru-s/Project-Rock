@@ -18,7 +18,7 @@ public class SleepState : State
 
     public override State RunCurrentState()
     {
-        if (isWakingUp == false && Vector2.Distance(player.transform.position, transform.position) <= 5f)
+        if (isWakingUp == false && Vector2.Distance(player.transform.position, transform.position) <= 6f)
         {
             isWakingUp = true;
             StartCoroutine(WaitForWakeUp());
@@ -37,8 +37,22 @@ public class SleepState : State
 
     private IEnumerator WaitForWakeUp()
     {
+        PlayRandomAudio();
         transform.parent.parent.gameObject.GetComponent<EnemyAnimationController>().ChangeAnimation("wakeUp");
         yield return new WaitForSeconds(1f);
         isWokeUp = true;
+    }
+
+    void PlayRandomAudio()
+    {
+
+        int randInt = Random.Range(1, 3);
+
+        string randString = "DeamonWakeUp_" + randInt.ToString();
+        Debug.Log(randString);
+        FindObjectOfType<AudioManager>().Play(randString);
+
+        //Play(randomSFX[sfxIndex]);
+
     }
 }

@@ -8,7 +8,7 @@ public class SearchState : State
     private GameObject player;
 
     [SerializeField] private float radius;
-    private List<GameObject> controlPoints = new List<GameObject>();
+    private List<Vector2> controlPoints = new List<Vector2>();
     private Vector2[] rayVectors = new Vector2[4];
     private Vector2 teleportPosition;
 
@@ -79,14 +79,14 @@ public class SearchState : State
             if(Vector2.Distance(item.transform.position, transform.position) <= radius)
             {
                 Debug.Log("Kontrol listesine eklenen obje adi: " + item.gameObject.name);
-                controlPoints.Add(item.gameObject);
+                controlPoints.Add(item.gameObject.transform.position);
                 //sound wave effect
             }
         }
         //player
         if (Vector2.Distance(player.transform.position, transform.position) <= radius)
         {
-            controlPoints.Add(player);
+            controlPoints.Add(player.transform.position);
         }
     }
 
@@ -104,19 +104,19 @@ public class SearchState : State
         
     }
 
-    private void RayControl(GameObject obstacle)
+    private void RayControl(Vector2 obstacle)
     {
         foreach (var rayDir in rayVectors)
         {
-            RaycastHit2D hit = Physics2D.Raycast(obstacle.transform.position, rayDir, 1.5f, LayerMask.GetMask("Walls"));
+            RaycastHit2D hit = Physics2D.Raycast(obstacle, rayDir, 1.5f, LayerMask.GetMask("Walls"));
             if (hit.collider == null)
             {
-                teleportPosition = new Vector2(obstacle.transform.position.x, obstacle.transform.position.y);
+                teleportPosition = new Vector2(obstacle.x, obstacle.y);
                 teleportPosition += rayDir;
                 break;
             }
 
-            teleportPosition = new Vector2(obstacle.transform.position.x, obstacle.transform.position.y);
+            teleportPosition = new Vector2(obstacle.x, obstacle.y);
             teleportPosition += Vector2.left;
         }
     }

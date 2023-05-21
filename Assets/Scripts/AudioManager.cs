@@ -80,7 +80,11 @@ public class AudioManager : MonoBehaviour
     {
         Sound s = Array.Find(sounds, sound => sound.name == name);
         if (s == null)
+        {
+            Debug.Log("bu isimde ses dosyasi bulunamadi: " + name);
             return;
+
+        }
         s.source.Play();
     }
     public void Stop(string name)
@@ -112,6 +116,8 @@ public class AudioManager : MonoBehaviour
 
     public float GetAudioVolume(bool isTheme)
     {
+        return 0f;
+
         for (int i = 0; i < audios.Length; i++)
         {
             if (isTheme == true)
