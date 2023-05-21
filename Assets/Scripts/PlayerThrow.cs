@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerThrow : MonoBehaviour
 {
     public GameObject rock;
+    public GameObject skillshot;
     public float throwSpeed = 0.01f;
     public float throwDistance = 100f;
     public GameObject player;
@@ -18,21 +19,33 @@ public class PlayerThrow : MonoBehaviour
     
     void Update()
     {
+        if(Input.GetButtonDown("Skill"))
+        {
+            skillshot.SetActive(!skillshot.activeSelf);
+        }
+
         if(Input.GetMouseButtonDown(0) && currentRockCount > 0)
         {
             rock.SetActive(true);
             Vector3 throwPos = (Camera.main.ScreenToWorldPoint(Input.mousePosition));
-            throwPos.z = -9f; // Bunu yapmazsan gorunmez oluyo
+            throwPos.z = -9f;
 
             
             float distance = Vector2.Distance(player.transform.position, throwPos);
             if (distance > throwDistance)
             {
-                // Burada distance, max distance limitini gecerse calisacask yani throwPos u burada limitlemen gerekiyor.
+                throwPos = (Camera.main.ScreenToWorldPoint(Input.mousePosition)).normalized * throwDistance;
             }
 
             StartCoroutine(throwRock(throwPos));
         }
+
+        Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 dir = (this.transform.position - pos).normalized;
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        Vector3 rotation = new Vector3(0f, 0f, angle);
+        skillshot.transform.rotation = Quaternion.Euler(rotation);
+
     }
 
     IEnumerator throwRock(Vector3 throwPos) 
