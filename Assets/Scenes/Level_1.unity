@@ -62478,6 +62478,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7811956416092246356, guid: a6ce7cbbd209e5f4789686adb63186d2, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Level_2
+      objectReference: {fileID: 0}
     - target: {fileID: 7811956416380418826, guid: a6ce7cbbd209e5f4789686adb63186d2, type: 3}
       propertyPath: m_Name
       value: Managers

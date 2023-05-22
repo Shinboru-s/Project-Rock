@@ -99,6 +99,7 @@ public class PlayerController : MonoBehaviour
 
         if (isRock == true) 
         {
+            movement = Vector2.zero;
             gameObject.tag = "Obstacle";
         }
         else
